@@ -5,16 +5,16 @@ pipeline{
     }
 
     stages{
-        stages('Build'){
+        stage('Build'){
             sh 'mvn clean package'
         }
-        post{
+        stage{
             success{
                 echo "Archiving the artifacts"
                 archieArtifacts artifacts: '**target/*.war'
             }
         }
-        stages('Deploy to Tomcat server'){
+        stage('Deploy to Tomcat server'){
             steps{
                 deploy adapters: [tomcat9(path: '', url: 'http://localhost:8081/')], contextPath: null, war: '**/*.war'
             }
