@@ -14,7 +14,7 @@ pipeline{
                 archieArtifacts artifacts: '**target/*.war'
             }
         }
-        stage('Deploy to Tomcat server'){
+        stages('Deploy to Tomcat server'){
             steps{
                 deploy adapters: [tomcat9(path: '', url: 'http://localhost:8081/')], contextPath: null, war: '**/*.war'
             }
